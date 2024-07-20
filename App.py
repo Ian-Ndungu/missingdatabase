@@ -3,9 +3,11 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///missing_persons.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Disable the warning
 db = SQLAlchemy(app)
 
-from models import MissingPerson
+# Ensure 'app' is the correct module name if models.py is inside the 'app' directory
+from app.models import MissingPerson
 
 @app.route('/')
 def index():
@@ -40,4 +42,4 @@ def add_person():
 
 if __name__ == '__main__':
     db.create_all()
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=80, debug=True)
