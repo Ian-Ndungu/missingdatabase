@@ -12,6 +12,7 @@ db = SQLAlchemy(app)
 jwt = JWTManager(app)
 CORS(app)
 
+CORS(app, resources={r"/*": {"origins": "*"}})
 # Models
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
