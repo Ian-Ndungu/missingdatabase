@@ -7,7 +7,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///missing_persons.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['JWT_SECRET_KEY'] = 'your_jwt_secret_key'  # Change this to a real secret key
+app.config['JWT_SECRET_KEY'] = '29d4ab7de0c65efa94a08cdf6e08a9b4b335e513e76866cc38805b596bfc1a21' 
 db = SQLAlchemy(app)
 jwt = JWTManager(app)
 CORS(app)
