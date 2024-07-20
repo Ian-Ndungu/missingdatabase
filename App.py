@@ -12,7 +12,7 @@ db = SQLAlchemy(app)
 jwt = JWTManager(app)
 
 # Enable CORS for all routes
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 # Models
 class User(db.Model):
