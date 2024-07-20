@@ -7,12 +7,22 @@ from werkzeug.security import generate_password_hash, check_password_hash
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///missing_persons.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['JWT_SECRET_KEY'] = '29d4ab7de0c65efa94a08cdf6e08a9b4b335e513e76866cc38805b596bfc1a21' 
+app.config['JWT_SECRET_KEY'] = '29d4ab7de0c65efa94a08cdf6e08a9b4b335e513e76866cc38805b596bfc1a21'
+
 db = SQLAlchemy(app)
 jwt = JWTManager(app)
 
 # Enable CORS for all routes
 CORS(app, resources={r"/*": {"origins": "*"}})
+
+@app.before_request
+def handle_preflight():
+    if request.method == 'OPTIONS':
+        response = app.make_response('')
+        response.headers['Access-Control-Allow-Origin'] = '*'
+        response.headers['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
+        response.headers['Access-Control-Allow-Headers'] = 'Authorization, Content-Type'
+        return response
 
 # Models
 class User(db.Model):
