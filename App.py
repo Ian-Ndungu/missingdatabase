@@ -1,12 +1,13 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS 
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///missing_persons.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Disable the warning
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  
 db = SQLAlchemy(app)
+CORS(app)
 
-# Ensure 'app' is the correct module name if models.py is inside the 'app' directory
 from app.models import MissingPerson
 
 @app.route('/')
